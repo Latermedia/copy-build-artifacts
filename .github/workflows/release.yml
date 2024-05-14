@@ -14,7 +14,7 @@ jobs:
       - name: Node Setup
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Test and prepare distribution
         run: npm install && npm run all
