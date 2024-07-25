@@ -1,6 +1,6 @@
 # action.yml
 name: 'Copy Git Meta'
-description: 'A simple Action copying created by https://github.com/mavrck-inc/git-meta git meta and template files to S3'
+description: 'A simple Action copying created by https://github.com/Latermedia/git-meta git meta and template files to S3'
 inputs:
   version:
     description: 'The version of the service'
