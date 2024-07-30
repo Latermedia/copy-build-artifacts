@@ -2767,6 +2767,14 @@ module.exports = require("net");
 
 /***/ }),
 
+/***/ 561:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
+
+/***/ }),
+
 /***/ 37:
 /***/ ((module) => {
 
@@ -2841,6 +2849,7 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(186);
+const fs = __nccwpck_require__(561);
 
 function execShellCommand(cmd) {
   const exec = (__nccwpck_require__(81).exec);
@@ -2910,8 +2919,13 @@ function execShellCommand(cmd) {
     }
 
     if (gitbranch && version && serviceName) {
+      fs.writeFile('version_file.txt', version, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
       console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "current_versions/${gitbranch}/${serviceName}" \
-        --tagging "branch=${bucketTagBranch}" --body ${version}`));
+        --tagging "branch=${bucketTagBranch}" --body version_file.txt `));
     }
   } catch (error) {
     core.setFailed(error.message);

@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const fs = require('node:fs');
 
 function execShellCommand(cmd) {
   const exec = require('child_process').exec;
@@ -68,8 +69,13 @@ function execShellCommand(cmd) {
     }
 
     if (gitbranch && version && serviceName) {
+      fs.writeFile('version_file.txt', version, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
       console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "current_versions/${gitbranch}/${serviceName}" \
-        --tagging "branch=${bucketTagBranch}" --body ${version}`));
+        --tagging "branch=${bucketTagBranch}" --body version_file.txt `));
     }
   } catch (error) {
     core.setFailed(error.message);
