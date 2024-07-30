@@ -2919,12 +2919,13 @@ function execShellCommand(cmd) {
     }
 
     if (gitbranch && version && serviceName) {
+      const fixedBranchName = gitbranch.replace(/[^a-zA-Z0-9]/gs, '_');
       fs.writeFile('version_file.txt', version, err => {
         if (err) {
           console.error(err);
         }
       });
-      console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "current_versions/${gitbranch}/${serviceName}" \
+      console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "current_versions/${fixedBranchName}/${serviceName}" \
         --tagging "branch=${bucketTagBranch}" --body version_file.txt `));
     }
   } catch (error) {
