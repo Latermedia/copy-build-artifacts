@@ -2908,6 +2908,11 @@ function execShellCommand(cmd) {
       console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "${serviceName}/${version}/${terraformOutput}" \
         --tagging "branch=${bucketTagBranch}" --body ${terraform}`));
     }
+
+    if (gitbranch && version && serviceName) {
+      console.log(await execShellCommand(`aws s3api put-object --bucket ${bucket} --key "current_versions/${gitbranch}/${serviceName}" \
+        --tagging "branch=${bucketTagBranch}" --body ${version}`));
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
