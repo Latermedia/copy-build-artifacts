@@ -1,6 +1,6 @@
 # action.yml
 name: 'Copy Git Meta'
-description: 'A simple Action copying created by https://github.com/Latermedia/git-meta git meta and template files to S3'
+description: 'A simple Action created by copying [git meta](https://github.com/Latermedia/git-meta) and template files to S3'
 inputs:
   version:
     description: 'The version of the service'
@@ -34,12 +34,10 @@ inputs:
     default: meta.yml
   metrics:
     description: 'Metrics file path'
-    required: true
-    default: metrics.yml
+    required: false
   metricsOutput:
     description: 'Metrics output file path'
-    required: true
-    default: metrics.yml
+    required: false
   templateOutput:
     description: 'Template output'
     required: true
